@@ -439,7 +439,7 @@
 
 #pragma mark Private methods
 - (void)initContent {
-  self.horizontalInset = 8;
+  self.horizontalInset = 0;
 
   segmentedControl = [[MDSegmentedControl alloc] initWithTabBar:self];
   [segmentedControl setTintColor:[UIColor clearColor]];
@@ -612,8 +612,9 @@
   if (selectedIndex < segmentedControl.numberOfSegments) {
     _selectedIndex = selectedIndex;
     if (segmentedControl.selectedSegmentIndex != _selectedIndex) {
-      [segmentedControl setSelectedSegmentIndex:_selectedIndex];
-      [self scrollToSelectedIndex];
+        [self updateSelectedIndex:selectedIndex];
+        [segmentedControl setSelectedSegmentIndex:_selectedIndex];
+        [self scrollToSelectedIndex];
     }
   }
 }
