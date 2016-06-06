@@ -127,18 +127,21 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-  if (anim == [self animationForKey:@"opacityAnim"]) {
-    self.opacity = 0;
-  } else if (flag) {
-    if (_userIsHolding) {
-      _effectIsRunning = false;
-      if (self.delegate) {
-        [self.delegate mdLayer:self didFinishEffect:anim.duration];
-      }
+    if (anim == [self animationForKey:@"opacityAnim"]) {
+        self.opacity = 0;
     } else {
-      [self clearEffects];
+        [self clearEffects];
+        if (flag) {
+            if (_userIsHolding) {
+                _effectIsRunning = false;
+                if (self.delegate) {
+                    [self.delegate mdLayer:self didFinishEffect:anim.duration];
+                }
+            } else {
+                [self clearEffects];
+            }
+        }
     }
-  }
 }
 
 #pragma mark MDTouchGestureRecognizerDelegate methods
